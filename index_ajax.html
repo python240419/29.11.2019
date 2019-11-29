@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AJAX INTRODUCTION</title>
+    <!-- adding JQuery to the page -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<style>
+	body {
+		margin-left: 10px;
+	}
+</style>
+
+<body>
+
+	<hr>
+	<br>
+	<p>ID: <input type="number" id="num"></p>
+	<button onclick="getuserJQ()">GET-JQUERY</button>
+	<br>
+	<div id="result">
+
+	</div>
+	<table id="todos" border="1" style="padding:5px" cellpadding="7">
+
+	</table>
+	<script>
+		var debug
+		function getuserJQ() {
+            // GET POST PUT DELETE
+			$.ajax({ // GET
+				url: `https://jsonplaceholder.typicode.com/todos`
+            }).
+            // future
+            then(function (data) {
+                // will happedn after result will come back ...
+				console.log(data);
+				var $todos_table = $("#todos")
+				$todos_table.append(`
+						< tr >
+						<th>ID</th>
+						<th>TITLE</th></tr >`);
+				$.each(data, function (i, todo) {
+					$todos_table.append(`<tr> <td> ${todo.id} </td><td>${todo.title}</td></tr>`)
+				})
+			}).fail(
+				// what to do on error
+				function (err) {
+					console.error(err)
+				}
+				)
+		}
+	</script>
+
+</body>
+
+</html>
